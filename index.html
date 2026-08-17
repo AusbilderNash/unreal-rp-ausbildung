@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UNREAL RP | Ausbildung</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#090b0f;
+    color:#f1f1f1;
+}
+
+header{
+    background:#0d1015;
+    border-bottom:1px solid #242932;
+    padding:22px 8%;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.logo span{
+    color:#d71920;
+}
+
+.header-sub{
+    color:#7f8793;
+    font-size:13px;
+    margin-top:5px;
+}
+
+.container{
+    max-width:900px;
+    margin:55px auto;
+    padding:20px;
+}
+
+.card{
+    background:#11141a;
+    border:1px solid #262b34;
+    border-radius:16px;
+    padding:38px;
+    box-shadow:0 15px 45px rgba(0,0,0,.25);
+}
+
+.start{text-align:center}
+
+.start h1{
+    font-size:40px;
+    margin:0 0 12px;
+}
+
+.start h1 span{
+    color:#d71920;
+}
+
+.description{
+    color:#9aa1ac;
+    line-height:1.7;
+    max-width:650px;
+    margin:0 auto 28px;
+}
+
+.info{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:28px;
+}
+
+.info div{
+    background:#0c0f14;
+    border:1px solid #292f38;
+    padding:11px 16px;
+    border-radius:9px;
+    color:#b8bec7;
+    font-size:14px;
+}
+
+input{
+    width:100%;
+    max-width:500px;
+    padding:14px;
+    background:#0a0c10;
+    border:1px solid #303641;
+    border-radius:9px;
+    color:white;
+    font-size:15px;
+    outline:none;
+    margin-bottom:15px;
+}
+
+input:focus{
+    border-color:#d71920;
+}
+
+button{
+    border:0;
+    border-radius:9px;
+    padding:13px 21px;
+    background:#c9151c;
+    color:white;
+    font-weight:700;
+    cursor:pointer;
+    font-size:15px;
+}
+
+button:hover{
+    background:#e01b23;
+}
+
+.hidden{display:none}
+
+.top{
+    display:flex;
+    justify-content:space-between;
+    color:#8f97a3;
+    font-size:13px;
+}
+
+.progress{
+    width:100%;
+    height:6px;
+    background:#272c35;
+    border-radius:20px;
+    overflow:hidden;
+    margin:14px 0 32px;
+}
+
+.progress-bar{
+    height:100%;
+    width:0;
+    background:#d71920;
+    transition:.3s;
+}
+
+.question{
+    font-size:23px;
+    font-weight:700;
+    line-height:1.45;
+    margin-bottom:23px;
+}
+
+.answers{
+    display:grid;
+    gap:11px;
+}
+
+.answer{
+    width:100%;
+    text-align:left;
+    background:#171a21;
+    border:1px solid #303641;
+    color:#e8e9ec;
+}
+
+.answer:hover{
+    border-color:#5a616c;
+    background:#1b1e25;
+}
+
+.answer.selected{
+    background:#351316;
+    border-color:#d71920;
+}
+
+.bottom{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:25px;
+}
+
+.muted{
+    color:#737b87;
+    font-size:13px;
+}
+
+.result{
+    text-align:center;
+}
+
+.result h1{
+    margin-top:0;
+}
+
+.score{
+    font-size:60px;
+    font-weight:800;
+    margin:20px 0;
+}
+
+.pass{color:#31c875}
+.fail{color:#e3484e}
+
+.result-box{
+    background:#0c0f14;
+    border:1px solid #292f38;
+    border-radius:10px;
+    padding:17px;
+    margin:20px 0;
+    color:#aab1bc;
+}
+
+footer{
+    text-align:center;
+    color:#505762;
+    font-size:12px;
+    padding:25px;
+}
+
+@media(max-width:600px){
+    .card{padding:24px}
+    .start h1{font-size:31px}
+    .question{font-size:20px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">UNREAL <span>RP</span></div>
+    <div class="header-sub">Offizielles Ausbildungssystem</div>
+</header>
+
+<div class="container">
+
+<!-- STARTSEITE -->
+
+<div id="start" class="card start">
+
+    <h1>Ausbildungs<span>prüfung</span></h1>
+
+    <p class="description">
+        Willkommen im offiziellen Ausbildungssystem von Unreal RP.
+        Die Prüfung überprüft dein Verständnis von Roleplay,
+        Regelwerk und professionellem Verhalten.
+    </p>
+
+    <div class="info">
+        <div>30 Fragen</div>
+        <div>30 Punkte</div>
+        <div>24 Punkte zum Bestehen</div>
+    </div>
+
+    <input
+        id="name"
+        type="text"
+        placeholder="Roblox- oder Discord-Name"
+    >
+
+    <br>
+
+    <button onclick="startTest()">
+        Prüfung starten
+    </button>
+
+</div>
+
+
+<!-- PRÜFUNG -->
+
+<div id="quiz" class="card hidden">
+
+    <div class="top">
+        <span id="counter"></span>
+        <span id="points">0 Punkte</span>
+    </div>
+
+    <div class="progress">
+        <div id="progressBar" class="progress-bar"></div>
+    </div>
+
+    <div id="question" class="question"></div>
+
+    <div id="answers" class="answers"></div>
+
+    <div class="bottom">
+        <span class="muted">
+            Wähle die deiner Meinung nach beste Antwort.
+        </span>
+
+        <button id="next" onclick="nextQuestion()" disabled>
+            Weiter
+        </button>
+    </div>
+
+</div>
+
+
+<!-- ERGEBNIS -->
+
+<div id="result" class="card result hidden">
+
+    <h1>Prüfung abgeschlossen</h1>
+
+    <p id="resultName"></p>
+
+    <div id="score" class="score"></div>
+
+    <h2 id="status"></h2>
+
+    <div class="result-box">
+        Mindestpunktzahl: <b>24 / 30</b>
+    </div>
+
+    <button onclick="location.reload()">
+        Erneut versuchen
+    </button>
+
+</div>
+
+</div>
+
+<footer>
+    © Unreal RP • Ausbildungssystem
+</footer>
+
+
+<script>
+
+/*
+=========================================
+UNREAL RP - AUSBILDUNGSPRÜFUNG
+30 SCHWERE FRAGEN
+=========================================
+*/
+
+const questionBank = [
+
+{
+q:"Du erhältst über Discord die Information, dass eine Person im RP gerade einen illegalen Transport durchführt. Dein Charakter hat diese Information nicht. Du fährst trotzdem gezielt dorthin. Was liegt vor?",
+a:[
+"PowerGaming",
+"MetaGaming",
+"FearRP",
+"VDM"
+],
+c:1
+},
+
+{
+q:"Ein bewaffneter Täter hält deinen Charakter mit einer Waffe unter Kontrolle. Du bist deutlich unterlegen und entscheidest dich trotzdem ohne nachvollziehbaren Grund für einen Angriff. Welches RP-Prinzip wird verletzt?",
+a:[
+"FearRP",
+"VDM",
+"OOC",
+"MetaGaming"
+],
+c:0
+},
+
+{
+q:"Du zwingst einen anderen Charakter durch deine Aktion dazu, eine bestimmte Reaktion auszuführen, ohne ihm eine realistische Handlungsmöglichkeit zu lassen. Was beschreibt dies am ehesten?",
+a:[
+"New Life Rule",
+"PowerGaming",
+"Cop Baiting",
+"VDM"
+],
+c:1
+},
+
+{
+q:"Du wirst während einer laufenden Situation bewusstlos bzw. getötet und kehrst unmittelbar zurück, um dich an den Beteiligten zu rächen. Was ist problematisch?",
+a:[
+"RDM",
+"New Life Rule",
+"OOC",
+"Cop Baiting"
+],
+c:1
+},
+
+{
+q:"Ein Spieler nutzt Informationen aus einem Livestream, um die Position eines anderen Spielers im RP zu finden. Was ist das?",
+a:[
+"FailRP",
+"VDM",
+"MetaGaming",
+"FearRP"
+],
+c:2
+},
+
+{
+q:"Ein Spieler fährt absichtlich mit seinem Fahrzeug in einen anderen Spieler, obwohl keine entsprechende RP-Situation besteht. Was ist das?",
+a:[
+"RDM",
+"VDM",
+"PowerGaming",
+"OOC"
+],
+c:1
+},
+
+{
+q:"Du verlässt während einer laufenden Verfolgung absichtlich den Server, weil du eine Festnahme vermeiden möchtest. Welcher Verstoß liegt nahe?",
+a:[
+"Combat Logging / RP-Flucht",
+"FearRP",
+"MetaGaming",
+"Cop Baiting"
+],
+c:0
+},
+
+{
+q:"Ein Spieler provoziert wiederholt Polizisten ohne sinnvollen RP-Grund, nur um eine Verfolgungsjagd auszulösen. Was beschreibt das?",
+a:[
+"New Life Rule",
+"Cop Baiting",
+"PowerGaming",
+"RDM"
+],
+c:1
+},
+
+{
+q:"Ein Spieler wird schwer verletzt und spielt die Verletzungen vollständig aus, obwohl er dadurch eingeschränkt ist. Wie ist dieses Verhalten grundsätzlich zu bewerten?",
+a:[
+"Realistisches RP",
+"MetaGaming",
+"VDM",
+"OOC"
+],
+c:0
+},
+
+{
+q:"Du siehst außerhalb des Spiels, dass ein Spieler einen Hinterhalt plant. Dein Charakter weiß davon nichts. Du weichst dem Hinterhalt deshalb im RP gezielt aus. Was ist das?",
+a:[
+"MetaGaming",
+"FearRP",
+"VDM",
+"New Life Rule"
+],
+c:0
+},
+
+{
+q:"Ein Spieler nutzt absichtlich einen bekannten Fehler im Spiel aus, um einen unfairen Vorteil zu erhalten. Was sollte er tun?",
+a:[
+"Den Fehler weiter ausnutzen",
+"Den Fehler melden und nicht ausnutzen",
+"Den Fehler nur nachts nutzen",
+"Andere Spieler dazu auffordern"
+],
+c:1
+},
+
+{
+q:"Du bist Supporter und dein bester Freund wird wegen eines Regelverstoßes gemeldet. Was ist die professionellste Vorgehensweise?",
+a:[
+"Den Fall ignorieren",
+"Deinen Freund schützen",
+"Nach Regelwerk und Beweisen entscheiden",
+"Den Melder bestrafen"
+],
+c:2
+},
+
+{
+q:"Zwei Spieler liefern bei einem Supportfall komplett unterschiedliche Aussagen. Es gibt zusätzlich einen Clip. Was sollte zuerst geschehen?",
+a:[
+"Die lautere Person glauben",
+"Den Clip und beide Aussagen prüfen",
+"Beide bestrafen",
+"Den Fall sofort schließen"
+],
+c:1
+},
+
+{
+q:"Ein Spieler behauptet, er sei RDMt worden. Der vorhandene Clip zeigt jedoch einen vorherigen eindeutigen RP-Konflikt. Was ist die richtige Vorgehensweise?",
+a:[
+"Automatisch RDM bestrafen",
+"Den Clip ignorieren",
+"Den Sachverhalt anhand der Beweise bewerten",
+"Beide Spieler bannen"
+],
+c:2
+},
+
+{
+q:"Du bist dir als Teammitglied bei der richtigen Strafe nicht sicher. Was ist professionell?",
+a:[
+"Eine zufällige Strafe wählen",
+"Den Spieler sofort bannen",
+"Regelwerk prüfen oder einen höherrangigen Teamler fragen",
+"Die Regel selbst ändern"
+],
+c:2
+},
+
+{
+q:"Welche Situation ist am ehesten FailRP?",
+a:[
+"Ein Charakter spielt eine schwere Verletzung aus",
+"Ein Charakter ignoriert eine lebensgefährliche Situation komplett ohne nachvollziehbaren Grund",
+"Ein Spieler meldet einen Regelverstoß",
+"Ein Charakter fährt zur Polizei"
+],
+c:1
+},
+
+{
+q:"Während einer laufenden Geiselnahme mischt sich ein völlig unbeteiligter Spieler ein und eröffnet ohne RP-Grund das Feuer. Was ist das Hauptproblem?",
+a:[
+"Unzulässige Einmischung in die RP-Situation",
+"OOC",
+"New Life Rule",
+"MetaGaming"
+],
+c:0
+},
+
+{
+q:"Was ist der wichtigste Grund, warum OOC- und IC-Informationen getrennt bleiben müssen?",
+a:[
+"Damit Spieler keine Informationen außerhalb des Charakters unfair verwenden",
+"Damit weniger Spieler online sind",
+"Damit Fahrzeuge realistischer aussehen",
+"Damit Supporttickets schneller geschlossen werden"
+],
+c:0
+},
+
+{
+q:"Ein Teammitglied nutzt seine Rechte, um einem Freund Vorteile zu verschaffen. Was ist das?",
+a:[
+"Normales Teamverhalten",
+"Admin Abuse / Rechte-Missbrauch",
+"FearRP",
+"New Life Rule"
+],
+c:1
+},
+
+{
+q:"Wie sollte ein Supporter reagieren, wenn ein Spieler während des Supports beleidigend wird?",
+a:[
+"Zurückbeleidigen",
+"Ruhig und sachlich bleiben und den Fall weiter bearbeiten",
+"Sofort ohne Prüfung bannen",
+"Den Fall ignorieren"
+],
+c:1
+},
+
+{
+q:"Welche Aussage über PowerGaming trifft am ehesten zu?",
+a:[
+"Man nutzt OOC-Informationen",
+"Man erzwingt unrealistische oder nicht fair ausspielbare Handlungen",
+"Man fährt ein Fahrzeug",
+"Man eröffnet ein Supportticket"
+],
+c:1
+},
+
+{
+q:"Welche Aussage beschreibt MetaGaming am genauesten?",
+a:[
+"Informationen außerhalb des RP werden zum Vorteil des Charakters verwendet",
+"Ein Spieler spielt Verletzungen aus",
+"Ein Spieler verliert sein Fahrzeug",
+"Ein Spieler meldet einen Bug"
+],
+c:0
+},
+
+{
+q:"Ein Spieler wird während einer RP-Situation festgenommen und verlässt absichtlich den Server. Er kommt später zurück und behauptet, es sei nichts passiert. Was ist problematisch?",
+a:[
+"Combat Logging / RP-Flucht",
+"FearRP",
+"VDM",
+"OOC"
+],
+c:0
+},
+
+{
+q:"Was sollte bei einer Teamentscheidung niemals die Grundlage sein?",
+a:[
+"Beweise",
+"Regelwerk",
+"Persönliche Freundschaft oder Abneigung",
+"Aussagen der Beteiligten"
+],
+c:2
+},
+
+{
+q:"Warum sollte ein Supporter einen Fall möglichst neutral betrachten?",
+a:[
+"Damit persönliche Gefühle die Entscheidung nicht beeinflussen",
+"Damit Freunde bevorzugt werden",
+"Damit weniger Regeln gelten",
+"Damit Spieler keine Beweise zeigen müssen"
+],
+c:0
+},
+
+{
+q:"Du erhältst einen Clip, der einen Regelverstoß möglicherweise zeigt. Was ist der nächste sinnvolle Schritt?",
+a:[
+"Clip sofort löschen",
+"Clip prüfen und mit dem Regelwerk vergleichen",
+"Spieler ohne Prüfung bannen",
+"Clip öffentlich posten"
+],
+c:1
+},
+
+{
+q:"Ein Spieler behauptet, eine Regel nicht gekannt zu haben. Wie sollte man grundsätzlich damit umgehen?",
+a:[
+"Regeln gelten nur für erfahrene Spieler",
+"Regelkenntnis ist grundsätzlich Verantwortung des Spielers",
+"Der Spieler darf deshalb alles",
+"Der Spieler darf keine Strafe bekommen"
+],
+c:1
+},
+
+{
+q:"Was ist bei einer Verfolgungsjagd besonders wichtig?",
+a:[
+"Unmögliche Manöver ausführen",
+"Realistisch und regelkonform handeln",
+"Absichtlich andere Fahrzeuge rammen",
+"Regeln ignorieren"
+],
+c:1
+},
+
+{
+q:"Was ist ein gutes Beispiel für professionelles Teamverhalten?",
+a:[
+"Freunde bevorzugen",
+"Entscheidungen nach Sympathie treffen",
+"Nachvollziehbar, neutral und nach Regelwerk handeln",
+"Konflikte öffentlich austragen"
+],
+c:2
+},
+
+{
+q:"Was ist das wichtigste Ziel eines RP-Regelwerks?",
+a:[
+"Möglichst viele Spieler zu bestrafen",
+"Faires, realistisches und nachvollziehbares Roleplay zu ermöglichen",
+"Teammitgliedern mehr Macht zu geben",
+"Spieler möglichst oft zu kicken"
+],
+c:1
+}
+
+];
+
+let questions=[];
+let current=0;
+let score=0;
+let selected=null;
+let playerName="";
+
+function shuffle(array){
+    return [...array].sort(()=>Math.random()-0.5);
+}
+
+function startTest(){
+
+    playerName=document.getElementById("name").value.trim();
+
+    if(!playerName){
+        alert("Bitte gib deinen Roblox- oder Discord-Namen ein.");
+        return;
+    }
+
+    /*
+    Die Reihenfolge der 30 Fragen wird zufällig gemischt.
+    */
+
+    questions=shuffle(questionBank);
+
+    current=0;
+    score=0;
+
+    document.getElementById("start").classList.add("hidden");
+    document.getElementById("quiz").classList.remove("hidden");
+
+    showQuestion();
+}
+
+function showQuestion(){
+
+    selected=null;
+
+    const q=questions[current];
+
+    document.getElementById("counter").innerText=
+        `Frage ${current+1} / 30`;
+
+    document.getElementById("points").innerText=
+        `${score} Punkte`;
+
+    document.getElementById("progressBar").style.width=
+        `${(current/30)*100}%`;
+
+    document.getElementById("question").innerText=q.q;
+
+    const box=document.getElementById("answers");
+
+    box.innerHTML="";
+
+    /*
+    Auch die Antwortmöglichkeiten werden gemischt.
+    */
+
+    const answers=q.a.map((text,index)=>({
+        text:text,
+        correct:index===q.c
+    }));
+
+    shuffle(answers).forEach(answer=>{
+
+        const button=document.createElement("button");
+
+        button.className="answer";
+        button.innerText=answer.text;
+
+        button.onclick=()=>{
+
+            document.querySelectorAll(".answer")
+            .forEach(b=>b.classList.remove("selected"));
+
+            button.classList.add("selected");
+
+            selected=answer.correct;
+
+            document.getElementById("next").disabled=false;
+        };
+
+        box.appendChild(button);
+    });
+
+    document.getElementById("next").disabled=true;
+}
+
+function nextQuestion(){
+
+    if(selected===null)return;
+
+    if(selected===true){
+        score++;
+    }
+
+    current++;
+
+    if(current<30){
+        showQuestion();
+    }else{
+        finishTest();
+    }
+}
+
+function finishTest(){
+
+    document.getElementById("quiz").classList.add("hidden");
+    document.getElementById("result").classList.remove("hidden");
+
+    document.getElementById("score").innerText=
+        `${score} / 30`;
+
+    document.getElementById("resultName").innerText=
+        `Teilnehmer: ${playerName}`;
+
+    const status=document.getElementById("status");
+
+    if(score>=24){
+
+        status.innerText="BESTANDEN";
+        status.className="pass";
+
+    }else{
+
+        status.innerText="NICHT BESTANDEN";
+        status.className="fail";
+    }
+
+    localStorage.setItem(
+        "unrealRPResult",
+        JSON.stringify({
+            name:playerName,
+            score:score,
+            total:30,
+            passed:score>=24,
+            date:new Date().toLocaleString("de-DE")
+        })
+    );
+}
+
+</script>
+
+</body>
+</html>
